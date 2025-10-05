@@ -42,13 +42,10 @@ jobs:
           echo "Installing CMake..."
           echo "y" | sdkmanager --install "cmake;3.22.1" || echo "CMake installation failed, continuing..."
           
-      - name: Ensure gradlew exists and has correct permissions
+      - name: Create gradlew script
         run: |
-          echo "Checking gradlew file..."
-          ls -la gradlew || echo "gradlew not found, this is expected if not committed"
-          if [ ! -f gradlew ]; then
-            echo "Creating gradlew script..."
-            cat > gradlew << 'EOF'
+          echo "Creating gradlew script..."
+          cat > gradlew << 'EOF'
           #!/bin/sh
           #
           # Copyright © 2015-2021 the original authors.
@@ -293,9 +290,8 @@ jobs:
           
           exec "$JAVACMD" "$@"
           EOF
-          fi
           chmod +x gradlew
-          echo "gradlew is ready"
+          echo "gradlew script created and permissions set"
         
       - name: Validate Gradle wrapper locally
         run: |
