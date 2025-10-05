@@ -42,14 +42,14 @@ jobs:
           echo "Installing CMake..."
           echo "y" | sdkmanager --install "cmake;3.22.1" || echo "CMake installation failed, continuing..."
           
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        
       - name: Validate Gradle wrapper locally
         run: |
           echo "Validating gradle wrapper..."
           ./gradlew --version
           echo "Gradle wrapper validation completed successfully"
-        
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
         
       - name: Cache Gradle packages
         uses: actions/cache@v4
